@@ -134,4 +134,20 @@ describe('commands', function() {
       commands.add('Foo bar');
     });
   });
+  
+  describe('.clear()', function(done) {
+    it('should clear the todo', function(done) {
+      sinon.stub(storage, 'set', function(key, value, cb) {
+        key.should.eql('items');
+        value.should.eql([]);
+        cb();
+      });
+      sinon.stub(storage, 'save', function(key, cb) {
+        storage.set.restore();
+        storage.save.restore();
+        done();
+      });
+      commands.clear();
+    });
+  });
 });
