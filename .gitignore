@@ -1,0 +1,14 @@
+node_modules/
+data/config.json
+*._
+*.tmp
+.monitor
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+.DS_Store
