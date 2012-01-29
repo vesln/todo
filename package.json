@@ -7,6 +7,7 @@
   , "dependencies": {
       "flatiron": "~0.1.7"
     , "storr": "0.0.1"
+    , "color": "0.4.1"
   }
   , "devDependencies": {
       "mocha": "0.3.3"
