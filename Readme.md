@@ -2,6 +2,8 @@
 
 # todo - Todos in the CLI like what.
 
+![screenshot](http://img580.imageshack.us/img580/684/todov.png)
+
 ## Description
 
 Todo lists in the CLI.
