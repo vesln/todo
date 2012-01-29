@@ -4,7 +4,26 @@
 
 ## Description
 
+Todo lists in the CLI.
+
 ## Synopsis
+
+```   
+   todo - Todos in the CLI like what.
+   
+   Usage:
+   
+          todo Go shopping. - Adds new item.
+          todo ls.          - Lists not finished items.
+          todo ls --all     - Lists all items.
+          todo rm 1         - Removes #1 item.
+          todo check 1      - Marks #1 item as done.
+          todo undo 1       - Marks #1 item as not done yet.
+          todo clear        - Clears the whole list.
+          todo version      - Lib version.
+   
+   Author: Veselin Todorov <hi@vesln.com>
+```   
 
 ## Requirements
 
