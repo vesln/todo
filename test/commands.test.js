@@ -54,4 +54,84 @@ describe('commands', function() {
       commands.list();
     });
   });
+  
+  describe('.check()', function(done) {
+    it('should mark todo item as done', function(done) {
+      sinon.stub(storage, 'get', function(key, cb) {
+        cb(null, [{text: 'Foo', done: false}]);
+      });
+      sinon.stub(storage, 'set', function(key, value, cb) {
+        key.should.eql('items');
+        value.should.eql([ { text: 'Foo', done: true } ]);
+        cb();
+      });
+      sinon.stub(storage, 'save', function(key, cb) {
+        storage.set.restore();
+        storage.get.restore();
+        storage.save.restore();
+        done();
+      });
+      commands.check(1);
+    });
+  });
+  
+  describe('.undo()', function(done) {
+    it('should mark todo item as not done yet', function(done) {
+      sinon.stub(storage, 'get', function(key, cb) {
+        cb(null, [{text: 'Foo', done: true}]);
+      });
+      sinon.stub(storage, 'set', function(key, value, cb) {
+        key.should.eql('items');
+        value.should.eql([ { text: 'Foo', done: false } ]);
+        cb();
+      });
+      sinon.stub(storage, 'save', function(key, cb) {
+        storage.set.restore();
+        storage.get.restore();
+        storage.save.restore();
+        done();
+      });
+      commands.undo(1);
+    });
+  });
+  
+  describe('.delete()', function(done) {
+    it('should remove an item', function(done) {
+      sinon.stub(storage, 'get', function(key, cb) {
+        cb(null, [{text: 'Foo', done: true}]);
+      });
+      sinon.stub(storage, 'set', function(key, value, cb) {
+        key.should.eql('items');
+        value.should.eql([]);
+        cb();
+      });
+      sinon.stub(storage, 'save', function(key, cb) {
+        storage.set.restore();
+        storage.get.restore();
+        storage.save.restore();
+        done();
+      });
+      commands.delete(1);
+    });
+  });
+  
+  describe('.add()', function(done) {
+    it('should remove an item', function(done) {
+      sinon.stub(storage, 'get', function(key, cb) {
+        cb(null, [{text: 'Foo', done: true}]);
+      });
+      sinon.stub(storage, 'set', function(key, value, cb) {
+        key.should.eql('items');
+        value.should.eql([{text: 'Foo', done: true}, {text: 'Foo bar', done: false}]);
+        cb();
+      });
+      sinon.stub(storage, 'save', function(key, cb) {
+        storage.set.restore();
+        storage.get.restore();
+        storage.save.restore();
+        done();
+      });
+      commands.add('Foo bar');
+    });
+  });
 });
