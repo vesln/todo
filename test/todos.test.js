@@ -87,7 +87,7 @@ describe("todos", function() {
           undone = {done: false};
 
       fake.items = [done, undone, done, undone];
-      items('undone').should.eql([done, done]);
+      items('undone').should.eql([undone, undone]);
     });
   });
 });
