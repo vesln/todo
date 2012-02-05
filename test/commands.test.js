@@ -62,11 +62,11 @@ describe('commands', function() {
     });
   });
 
-  describe('delete', function() {
+  describe('destroy', function() {
     it('removes an item', function() {
       storage.items = [1, 2];
 
-      commands.delete(1);
+      commands.destroy(1);
 
       storage.items.should.eql([2]);
     });
