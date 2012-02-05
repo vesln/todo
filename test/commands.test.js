@@ -7,13 +7,17 @@
 
 var sinon    = require('sinon'),
     commands = require('../lib/commands'),
+    Todos    = require('../lib/todos'),
     Storage  = require('./support/fake_storage');
 
 describe('commands', function() {
   var storage;
 
   beforeEach(function() {
-    storage = commands.storage = new Storage();
+    commands.storage = new Storage();
+    commands.todos = new Todos(commands.storage);
+
+    storage = commands.storage;
   });
 
   describe('version', function() {
