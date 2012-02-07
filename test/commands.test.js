@@ -5,19 +5,17 @@
  * MIT License.
  */
 
-var sinon    = require('sinon'),
-    commands = require('../lib/commands'),
-    Todos    = require('../lib/todos'),
-    Storage  = require('./support/fake_storage');
+var sinon   = require('sinon'),
+    init    = require('../lib/commands').init,
+    Todos   = require('../lib/todos'),
+    Storage = require('./support/fake_storage');
 
 describe('commands', function() {
-  var storage;
+  var storage, commands;
 
   beforeEach(function() {
-    commands.storage = new Storage();
-    commands.todos = new Todos(commands.storage);
-
-    storage = commands.storage;
+    storage = new Storage();
+    commands = init(new Todos(storage));
   });
 
   describe('version', function() {
