@@ -30,16 +30,10 @@ describe('commands', function() {
     it('print list items', function(done) {
       storage.items = [{text: 'Foo', done: false}];
 
-      var left = 3,
-          out  = '';
-
-      sinon.stub(commands, 'print', function(text) {
-        out += text;
-        if (--left == 0) {
-          out.should.eql('     #1  \u001b[31m✖\u001b[39m  Foo');
-          commands.print.restore();
-          done();
-        }
+      sinon.stub(console, 'log', function(text) {
+        text.should.eql("\n" + '     #1  \u001b[31m✖\u001b[39m  Foo' + "\n");
+        console.log.restore();
+        done();
       });
 
       commands.list();
