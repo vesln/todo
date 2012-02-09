@@ -29,13 +29,34 @@ describe("todos", function() {
   });
 
   describe("add", function() {
-    it("adds an todo items", function() {
+    it("adds a todo items", function() {
       todos.add("Text");
 
       var todo = items('all')[0];
 
       todo.text.should.eql("Text");
       todo.done.should.not.be.ok;
+    });
+	
+	// reserved words supported for now: check, rm, undo
+	it("adds todo items that begin with a reserved word", function() {
+      todos.add("check the thermometer");
+      todos.add("rm the test file");
+      todos.add("undo injustices in the world");
+      var checkTodo = items('all')[0];
+
+      checkTodo.text.should.eql("check the thermometer");
+      checkTodo.done.should.not.be.ok;
+
+      var rmTodo = items('all')[1];
+
+      rmTodo.text.should.eql("rm the test file");
+      rmTodo.done.should.not.be.ok;
+
+      var undoTodo = items('all')[2];
+
+      undoTodo.text.should.eql("undo injustices in the world");
+      undoTodo.done.should.not.be.ok;
     });
   });
 
