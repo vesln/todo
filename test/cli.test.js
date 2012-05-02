@@ -33,9 +33,9 @@ describe('cli', function() {
     cli.router.routes.version.on.should.eql(commands.version);
     cli.router.routes.ls.on.should.eql(commands.list);
     cli.router.routes.clear.on.should.eql(commands.clear);
-    cli.router.routes.rm['(.+)'].on.should.eql(commands.destroy);
-    cli.router.routes.check['(.+)'].on.should.eql(commands.check);
-    cli.router.routes.undo['(.+)'].on.should.eql(commands.undo);
+    cli.router.routes.rm['([\\d]+)'].on.should.eql(commands.destroy);
+    cli.router.routes.check['([\\d]+)'].on.should.eql(commands.check);
+    cli.router.routes.undo['([\\d]+)'].on.should.eql(commands.undo);
     cli.router.routes['(.+)'].on.should.eql(commands.add);
   });
 });
