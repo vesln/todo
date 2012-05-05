@@ -1,6 +1,6 @@
 /*!
  * todo - Todos in the CLI like what.
- * 
+ *
  * Veselin Todorov <hi@vesln.com>
  * MIT License.
  */
@@ -12,7 +12,7 @@ var flatiron = require('flatiron');
 
 /**
  * The tests object.
- * 
+ *
  * @type {Object}
  */
 var app = require('../lib/app');
