@@ -1,3 +1,10 @@
+/*!
+ * todo - Todos in the CLI like what.
+ *
+ * Veselin Todorov <hi@vesln.com>
+ * MIT License.
+ */
+
 var Todos   = require('../lib/todos'),
     Storage = require('./support/fake_storage');
 

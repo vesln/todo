@@ -18,7 +18,7 @@ var Storr = require('storr');
 var storage = require('../lib/storage');
 
 describe('storage', function() {
-  it('should be Storr object', function() {
+  it('is Storr object', function() {
     storage.constructor.should.eql(Storr);
   });
 });

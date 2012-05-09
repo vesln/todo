@@ -1,3 +1,10 @@
+/*!
+ * todo - Todos in the CLI like what.
+ *
+ * Veselin Todorov <hi@vesln.com>
+ * MIT License.
+ */
+
 var Storage = module.exports = function() {};
 
 Storage.prototype.get = function(type, callback) {

@@ -25,11 +25,11 @@ var storage = require('../lib/storage');
 var commands = require('../lib/commands');
 
 describe('cli', function() {
-  it('should expose flatiron app', function() {
+  it('exposes flatiron app', function() {
     cli.should.eql(flatiron.app);
   });
 
-  it('should register routes', function() {
+  it('registers routes', function() {
     cli.router.routes.version.on.should.eql(commands.version);
     cli.router.routes.ls.on.should.eql(commands.list);
     cli.router.routes.clear.on.should.eql(commands.clear);
