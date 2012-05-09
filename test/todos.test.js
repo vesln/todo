@@ -8,11 +8,11 @@
 var Todos   = require('../lib/todos'),
     Storage = require('./support/fake_storage');
 
-describe("todos", function() {
+describe('todos', function() {
   var fake, todos, items;
 
   beforeEach(function() {
-    fake  = new Storage();
+    fake = new Storage();
     todos = new Todos(fake);
     items = function(method) {
       var returned;
@@ -21,22 +21,20 @@ describe("todos", function() {
     };
   });
 
-  describe("all", function() {
-    it("runs a callback with all items", function() {
+  describe('all', function() {
+    it('runs a callback with all items', function() {
       fake.items = [1,2,3,4,5];
-
       items('all').should.eql([1,2,3,4,5]);
     });
 
-    it("runs a callback with empty array if no items are preset", function() {
+    it('runs a callback with empty array if no items are preset', function() {
       fake.items = null;
-
       items('all').should.eql([]);
     });
   });
 
-  describe("add", function() {
-    it("adds an todo items", function() {
+  describe('add', function() {
+    it('adds an todo items', function() {
       todos.add("Text");
 
       var todo = items('all')[0];
@@ -46,30 +44,24 @@ describe("todos", function() {
     });
   });
 
-  describe("destroy", function() {
-    it("removes an item with given index", function() {
+  describe('destroy', function() {
+    it('removes an item with given index', function() {
       fake.items = [1,2,3,4,5];
-
       todos.destroy(1);
-
       items('all').should.eql([1,3,4,5]);
     });
   });
 
-  describe("check", function() {
-    it("can mark todo as done", function() {
+  describe('check', function() {
+    it('can mark todo as done', function() {
       fake.items = [{done: false}];
-
       todos.check(0, true);
-
       items('all')[0].done.should.be.ok;
     });
 
-    it("can mark todo as no done", function() {
+    it('can mark todo as no done', function() {
       fake.items = [{done: true}];
-
       todos.check(0, false);
-
       items('all')[0].done.should.not.be.ok;
     });
 
@@ -81,9 +73,7 @@ describe("todos", function() {
   describe("clear", function() {
     it("removes all items", function() {
       fake.items = [1,2,3];
-
       todos.clear();
-
       items('all').should.eql([]);
     });
   });
