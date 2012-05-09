@@ -6,6 +6,11 @@
  */
 
 /**
+ * Support.
+ */
+var should = require('chai').should();
+
+/**
  * Test dependencies.
  */
 var Storr = require('storr');

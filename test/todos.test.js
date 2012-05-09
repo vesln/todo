@@ -5,6 +5,11 @@
  * MIT License.
  */
 
+/**
+ * Support.
+ */
+var should = require('chai').should();
+
 var Todos   = require('../lib/todos'),
     Storage = require('./support/fake_storage');
 

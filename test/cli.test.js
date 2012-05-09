@@ -6,7 +6,12 @@
  */
 
 /**
- * Test dependencies.
+ * Support.
+ */
+var should = require('chai').should();
+
+/**
+ * Dependencies.
  */
 var flatiron = require('flatiron');
 var path = require('path');

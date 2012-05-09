@@ -6,6 +6,11 @@
  */
 
 /**
+ * Support.
+ */
+var should = require('chai').should();
+
+/**
  * The tests object.
  *
  * @type {Object}

@@ -5,6 +5,11 @@
  * MIT License.
  */
 
+/**
+ * Support.
+ */
+var should = require('chai').should();
+
 var sinon   = require('sinon'),
     init    = require('../lib/commands').init,
     Todos   = require('../lib/todos'),
