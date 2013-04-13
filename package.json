@@ -1,6 +1,6 @@
 {
     "name": "todo"
-  , "version": "0.0.1"
+  , "version": "0.0.2"
   , "description": "Todos in the CLI like what."
   , "keywords": ["todo", "todo cli", "cli"]
   , "author": "Veselin Todorov <hi@vesln.com>"
