@@ -20,7 +20,7 @@ var formatter = require('../lib/formatter');
 describe('formatter', function() {
   describe('.format()', function() {
     it('formats finished items', function() {
-      formatter.format({ text: 'Foo', done: true }, 0).should.eql('     #1  \u001b[32m√\u001b[39m  Foo');
+      formatter.format({ text: 'Foo', done: true }, 0).should.eql('     #1  \u001b[32m✓\u001b[39m  Foo');
     });
 
     it('formats not finished items', function() {
