@@ -32,6 +32,7 @@ module.exports = function(hydro) {
     chai: {
       styles: 'should',
       stack: true,
+      plugins: ['jack-chai'],
     },
     globals: {
       cli: cli,
@@ -39,6 +40,7 @@ module.exports = function(hydro) {
     plugins: [
       'hydro-bdd',
       'hydro-chai',
+      'hydro-jack'
     ],
     tests: [
       'test/*.js',
