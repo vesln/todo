@@ -1,14 +1,2 @@
-node_modules/
-data/db.json
-*._
-*.tmp
-.monitor
-*.diff
-*.err
-*.orig
-*.rej
-*.swo
-*.swp
-*.vi
-*~
-.DS_Store
+/node_modules/
+/coverage/
