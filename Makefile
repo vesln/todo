@@ -6,6 +6,13 @@ TEST_EXEC=node_modules/.bin/hydro
 TEST_COV_EXEC=node_modules/.bin/istanbul
 
 #
+# Install
+#
+
+install:
+	@npm install
+
+#
 # Run all tests
 #
 
@@ -36,6 +43,19 @@ test-acceptance:
 
 test-cov:
 	@$(TEST_COV_EXEC) cover $(TEST_EXEC)
+
+#
+# Clean all
+#
+
+clean: clean-node
+
+#
+# Remove `node_modules`
+#
+
+clean-node:
+	@rm -rf node_modules
 
 #
 # Instructions
