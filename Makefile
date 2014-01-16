@@ -3,6 +3,7 @@
 #
 
 TEST_EXEC=node_modules/.bin/hydro
+TEST_COV_EXEC=node_modules/.bin/istanbul
 
 #
 # Run all tests
@@ -28,6 +29,13 @@ test-unit:
 
 test-acceptance:
 	@$(TEST_EXEC) test/acceptance/*.js
+
+#
+# Test coverage report
+#
+
+test-cov:
+	@$(TEST_COV_EXEC) cover $(TEST_EXEC)
 
 #
 # Instructions
