@@ -1,33 +1,27 @@
 {
-    "name": "todo"
-  , "version": "0.0.1"
-  , "description": "Todos in the CLI like what."
-  , "keywords": ["todo", "todo cli", "cli"]
-  , "author": "Veselin Todorov <hi@vesln.com>"
-  , "dependencies": {
-      "flatiron": "~0.1.7"
-    , "storr": "0.0.1"
-    , "colors": "0.6.0-1"
-  }
-  , "devDependencies": {
-      "mocha": "*"
-    , "chai": "*"
-    , "sinon": "1.3.1"
-  }
-  , "repository" : {
-      "type" : "git"
-    , "url" : "http://github.com/vesln/todo.git"
-  }
-  , "homepage": "http://github.com/vesln/todo"
-  , "scripts": {
-      "test": "make test"
-    , "postinstall": "make init"
-  }
-  , "main": "./lib/cli"
-  , "bin": {
-      "todo": "./bin/todo"
-  }
-  , "engines": {
-      "node": ">= 0.6.0 < 0.7.0"
+  "name": "todo",
+  "version": "0.0.1",
+  "description": "Todos in the CLI like what.",
+  "keywords": [
+    "todo",
+    "todos",
+    "todo cli"
+  ],
+  "author": "Veselin Todorov <hi@vesln.com>",
+  "devDependencies": {
+    "chai": "*",
+    "hydro": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/vesln/todo.git"
+  },
+  "homepage": "http://github.com/vesln/todo",
+  "scripts": {
+    "test": "make test"
+  },
+  "main": "index.js",
+  "bin": {
+    "todo": "./bin/todo"
   }
 }
