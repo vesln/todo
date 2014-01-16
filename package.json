@@ -10,7 +10,11 @@
   "author": "Veselin Todorov <hi@vesln.com>",
   "devDependencies": {
     "chai": "*",
-    "hydro": "*"
+    "nixt": "*",
+    "hydro": "*",
+    "hydro-doc": "0.0.2",
+    "hydro-bdd": "~0.1.0",
+    "hydro-chai": "~0.1.3"
   },
   "repository": {
     "type": "git",
