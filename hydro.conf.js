@@ -3,6 +3,7 @@
  */
 
 var nixt = require('nixt');
+var join = require('path').join;
 
 /**
  * Return a new `nixt` instance pointing
@@ -13,7 +14,9 @@ var nixt = require('nixt');
  */
 
 function cli() {
-  return nixt();
+  return nixt()
+    .cwd(join(__dirname, 'bin'))
+    .base('./todo ');
 }
 
 /**

@@ -28,5 +28,8 @@
   "main": "index.js",
   "bin": {
     "todo": "./bin/todo"
+  },
+  "dependencies": {
+    "argvee": "~0.1.1"
   }
 }

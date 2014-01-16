@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+/**
+ * External dependencies.
+ */
+
+var argv = require('argvee')();
+
+/**
+ * Primary command.
+ */
+
+var command = argv.commands.shift();
+
+/**
+ * Arguments.
+ */
+
+var item = argv.commands.join(' ');
+
+if (!item) {
+  console.error('todo: please enter a todo item');
+  process.exit(1);
+}
