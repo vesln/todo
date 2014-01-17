@@ -11,10 +11,9 @@ describe('todo check', function() {
 
   it('errors when the supplied id is invalid', function(done) {
     cli()
-    .exec('./todo add have less fun')
-    .run('rm 2')
-    .stderr('todo: Cannot find a todo item with id "2"')
+    .run('check 3')
+    .stderr('todo: Cannot find a todo item with id "3"')
     .code(1)
     .end(done);
-  }).pending();
+  });
 });

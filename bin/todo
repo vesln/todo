@@ -81,18 +81,18 @@ if ('add' === command) {
 
 if ('rm' === command) {
   var id = +argv.commands[0];
-  var found = false;
+  var todo = null;
+  var index = null;
 
-  todos = todos.filter(function(todo) {
-    var match = todo.id === id;
-    if (match) found = true;
-    return !match;
+  todos.forEach(function(t) {
+    if (t.id === id) todo = t;
   });
 
-  if (!found) {
+  if (!todo) {
     throw new Error('Cannot find a todo item with id "' + id + '"');
   }
 
+  todos.splice(todos.indexOf(todo), 1);
   save();
 }
 
@@ -112,12 +112,16 @@ if ('clear' === command) {
 
 if ('check' === command) {
   var id = +argv.commands[0];
+  var todo = null;
 
-  todos.forEach(function(todo) {
-    if (todo.id === id) {
-      todo.status = 'done';
-    }
+  todos.forEach(function(t) {
+    if (t.id === id) todo = t;
   });
 
+  if (!todo) {
+    throw new Error('Cannot find a todo item with id "' + id + '"');
+  }
+
+  todo.status = 'done';
   save();
 }
