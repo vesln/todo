@@ -129,7 +129,9 @@ var commands = {
    */
 
   clear: function() {
-    if (~argv.modes.indexOf('force')) return todos.clear();
+    if (~argv.modes.indexOf('force')) {
+      return todos.clear();
+    }
 
     console.log('Are you sure? (y/n)');
 
@@ -138,14 +140,52 @@ var commands = {
       console.error('Aborting...');
       process.exit(1);
     });
+  },
+
+  /**
+   * Help.
+   *
+   * Example:
+   *
+   *     $ todo
+   *     $ todo --help
+   */
+
+  help: function() {
+    [
+      '',
+      '  todo: Todos in the CLI like what',
+      '',
+      '  Usage:',
+      '',
+      '    todo                     Print help',
+      '    todo add Go shopping     Create a new todo item',
+      '    todo add ls              Print all pending todo items',
+      '    todo add ls @tag         Print todo items containing "@tag"',
+      '    todo add ls ~@tag        Print todo items not containing "@tag"',
+      '    todo add ls --all        Print completed and pending todo items',
+      '    todo add ls --done       Print completed todo items',
+      '    todo add done 1          Mark #1 as completed',
+      '    todo add undo 1          Revert #1 to pending',
+      '    todo add rm 1            Remove #1 item',
+      '    todo add clear           Destroy all todo items',
+      '',
+      '  Environment variables:',
+      '',
+      '    TODO_FORMAT=json         Specify formatter (simple, fancy, json) [default: simple]',
+      '    TODO_DB=~/Dropbox/       Specify DB path [default: your home directory]',
+      '',
+    ].forEach(function(line) {
+      console.log(line);
+    });
   }
 };
 
 /**
- * Request command.
+ * Requested command.
  */
 
-var command = argv.commands.shift();
+var command = argv.commands.shift() || 'help';
 
 if (commands.hasOwnProperty(command)) {
   commands[command]();
