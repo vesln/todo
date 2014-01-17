@@ -5,7 +5,6 @@
  */
 
 var argv = require('argvee')();
-var fs = require('fs');
 var stdin = require('stdin');
 
 /**
@@ -14,13 +13,6 @@ var stdin = require('stdin');
 
 var Storage = require('../lib/storage');
 
-/**
- * Primary command.
- */
-
-var command = argv.commands.shift();
-
-// TODO: ENV var
 var db = '/tmp/todos.txt';
 
 /**
@@ -29,57 +21,118 @@ var db = '/tmp/todos.txt';
 
 var todos = require('../lib/todos')(new Storage(db));
 
+/**
+ * Catch all errors and print them in a nice-ish way.
+ */
+
 process.on('uncaughtException', function(err) {
   console.error('todo: ' + err.message);
   process.exit(1);
 });
 
-// TODO: routes
+/**
+ * Available commands.
+ */
 
-if ('ls' === command) {
-  var status = 'pending';
+var commands = {
 
-  if (~argv.modes.indexOf('done')) status = 'done';
-  if (~argv.modes.indexOf('all')) status = 'all';
+  /**
+   * List all todo items.
+   *
+   * Example:
+   *
+   *     $ todo ls
+   *     $ todo ls @tag ~other
+   *     $ todo ls --all
+   *     $ todo ls --done
+   */
 
-  todos.list(status, argv.commands).forEach(function(todo) {
-    console.log('%d. %s', todo.id, todo.desc);
-  });
-}
+  ls: function() {
+    var status = 'pending';
+    if (~argv.modes.indexOf('done')) status = 'done';
+    if (~argv.modes.indexOf('all')) status = 'all';
+    todos.list(status, argv.commands).forEach(function(todo) {
+      console.log('%d. %s', todo.id, todo.desc);
+    });
+  },
 
-if ('add' === command) {
-  var desc = argv.commands.join(' ');
-  todos.create(desc);
-}
+  /**
+   * Create a new todo item.
+   *
+   * Example:
+   *
+   *     $ todo add Go to swimming
+   *     $ todo add "Write more Java"
+   */
 
-if ('rm' === command) {
-  var id = +argv.commands[0];
-  todos.destroy(id);
-}
+  add: function() {
+    todos.create(argv.commands.join(' '));
+  },
 
-if ('check' === command) {
-  var id = +argv.commands[0];
-  todos.check(id);
-}
+  /**
+   * Remove a todo item.
+   *
+   * Example:
+   *
+   *     $ todo rm 1
+   */
 
-if ('undo' === command) {
-  var id = +argv.commands[0];
-  todos.undo(id);
-}
+  rm: function() {
+    todos.destroy(+argv.commands[0]);
+  },
 
-if ('clear' === command) {
-  if (~argv.modes.indexOf('force')) {
-    return todos.clear();
-  }
+  /**
+   * Complete a todo item.
+   *
+   * Example:
+   *
+   *     $ todo check 1
+   */
 
-  console.log('Are you sure? (y/n)');
+  check: function() {
+    todos.check(+argv.commands[0]);
+  },
 
-  stdin(function(str) {
-    if ('y' === str.trim()) {
-      todos.clear();
-    } else {
+  /**
+   * Undo a completed todo item.
+   *
+   * Example:
+   *
+   *     $ todo undo 3
+   */
+
+  undo: function() {
+    todos.undo(+argv.commands[0]);
+  },
+
+  /**
+   * Clear all todo items.
+   *
+   * Example:
+   *
+   *     $ todo clear
+   *     $ todo clear --force
+   */
+
+  clear: function() {
+    if (~argv.modes.indexOf('force')) return todos.clear();
+
+    console.log('Are you sure? (y/n)');
+
+    stdin(function(str) {
+      if ('y' === str.trim()) return todos.clear();
       console.error('Aborting...');
       process.exit(1);
-    }
-  });
+    });
+  }
+};
+
+/**
+ * Request command.
+ */
+
+var command = argv.commands.shift();
+
+if (commands.hasOwnProperty(command)) {
+  commands[command]();
 }
