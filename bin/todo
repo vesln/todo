@@ -81,10 +81,17 @@ if ('add' === command) {
 
 if ('rm' === command) {
   var id = +argv.commands[0];
+  var found = false;
 
   todos = todos.filter(function(todo) {
-    return todo.id !== id;
+    var match = todo.id === id;
+    if (match) found = true;
+    return !match;
   });
+
+  if (!found) {
+    throw new Error('Cannot find a todo item with id "' + id + '"');
+  }
 
   save();
 }
