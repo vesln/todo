@@ -5,13 +5,7 @@
  */
 
 var argv = require('argvee')();
-
-/**
- * Internal dependencies.
- */
-
-var Db = require('../lib/db');
-var Todos = require('../lib/collection');
+var fs = require('fs');
 
 /**
  * Primary command.
@@ -23,7 +17,7 @@ var command = argv.commands.shift();
  * Todo items.
  */
 
-var todos = new Todos(new Db('/tmp/todos.txt'));
+var db = '/tmp/todos.txt';
 
 process.on('uncaughtException', function(err) {
   console.error('todo: ' + err.message);
@@ -31,11 +25,12 @@ process.on('uncaughtException', function(err) {
 });
 
 if ('ls' === command) {
-  console.log(todos.all());
+  console.log(fs.readFileSync(db, 'utf8'));
   process.exit(0);
 }
 
 if ('add' === command) {
   var desc = argv.commands.join(' ');
-  todos.create(desc);
+  if (!desc) throw new Error('please enter a todo item');
+  fs.writeFileSync(db, desc, 'utf8');
 }
