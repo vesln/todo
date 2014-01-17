@@ -13,6 +13,7 @@ var stdin = require('stdin');
 
 var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
+var filter = require('../lib/filter');
 
 /**
  * Todos.
@@ -28,6 +29,7 @@ process.on('uncaughtException', function(err) {
   console.error('todo: ' + err.message);
   process.exit(1);
 });
+
 
 /**
  * Available commands.
@@ -48,11 +50,20 @@ var commands = {
 
   ls: function() {
     var status = 'pending';
+
     if (~argv.modes.indexOf('done')) status = 'done';
     if (~argv.modes.indexOf('all')) status = 'all';
-    todos.list(status, argv.commands).forEach(function(todo) {
-      console.log('%d. %s', todo.id, todo.desc);
-    });
+
+    var f = filter(argv.commands);
+
+    todos
+      .list(status)
+      .filter(function(todo) {
+        return f(todo.desc);
+      })
+      .forEach(function(todo) {
+        console.log('%d. %s', todo.id, todo.desc);
+      });
   },
 
   /**
