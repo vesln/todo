@@ -172,8 +172,8 @@ var commands = {
       '',
       '  Environment variables:',
       '',
-      '    TODO_FORMAT=json         Specify formatter (simple, fancy, json) [default: simple]',
-      '    TODO_DB=~/Dropbox/       Specify DB path [default: your home directory]',
+      '    TODO_FORMAT=json         Specify formatter (simple, json) [default: simple]',
+      '    TODO_DB_PATH=~/Dropbox/  Specify DB path [default: your home directory]',
       '',
     ].forEach(function(line) {
       console.log(line);
