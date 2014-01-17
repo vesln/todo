@@ -26,10 +26,14 @@ var todos = new Todos(new Storage('/tmp/todos.txt'));
  */
 
 process.on('uncaughtException', function(err) {
-  console.error('todo: ' + err.message);
+  if (~argv.modes.indexOf('debug') && err.stack) {
+    console.error(err.stack);
+  } else {
+    console.error('todo: ' + err.message);
+  }
+
   process.exit(1);
 });
-
 
 /**
  * Available commands.
@@ -145,4 +149,6 @@ var command = argv.commands.shift();
 
 if (commands.hasOwnProperty(command)) {
   commands[command]();
+} else {
+  throw new Error('Unrecognized command "' + command + '"');
 }
