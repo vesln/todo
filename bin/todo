@@ -41,9 +41,7 @@ if ('ls' === command) {
   var keywords = argv.commands;
 
   todos.filter(function(todo) {
-    if (keywords.length === 0) {
-      return true;
-    }
+    if (keywords.length === 0) return true;
 
     var ret = false;
 
@@ -52,6 +50,8 @@ if ('ls' === command) {
     });
 
     return ret;
+  }).filter(function(todo) {
+    return 'pending' === todo.status;
   }).forEach(function(todo) {
     console.log('%d. %s', todo.id, todo.desc);
   });
@@ -73,7 +73,7 @@ if ('add' === command) {
   ids.push(0);
 
   var id = Math.max.apply(null, ids) + 1;
-  var todo = { desc: desc, id: id };
+  var todo = { desc: desc, id: id, status: 'pending' };
 
   todos.push(todo);
   save();
@@ -97,9 +97,7 @@ if ('rm' === command) {
 }
 
 if ('clear' === command) {
-  if (~argv.modes.indexOf('force')) {
-    return clear();
-  }
+  if (~argv.modes.indexOf('force')) return clear();
 
   console.log('Are you sure? (y/n)');
 
@@ -110,4 +108,16 @@ if ('clear' === command) {
     }
     clear();
   });
+}
+
+if ('check' === command) {
+  var id = +argv.commands[0];
+
+  todos.forEach(function(todo) {
+    if (todo.id === id) {
+      todo.status = 'done';
+    }
+  });
+
+  save();
 }
