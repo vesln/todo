@@ -9,13 +9,13 @@ describe('todo ls', function() {
     .end(done);
   });
 
-  it('can list todo items with given tag', function(done) {
+  it('can list todo items that contain given string', function(done) {
     cli()
     .unlink('/tmp/todos.txt')
     .exec('./todo add have more fun @tag')
     .exec('./todo add another one')
-    .run('ls @tag')
-    .stdout('have more fun @tag')
+    .run('ls another')
+    .stdout('another one')
     .code(0)
     .end(done);
   });

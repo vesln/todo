@@ -30,17 +30,17 @@ process.on('uncaughtException', function(err) {
 });
 
 if ('ls' === command) {
-  var tags = argv.commands;
+  var keywords = argv.commands;
 
   todos.filter(function(todo) {
-    if (tags.length === 0) {
+    if (keywords.length === 0) {
       return true;
     }
 
     var ret = false;
 
-    tags.forEach(function(tag) {
-      if (~todo.indexOf(tag)) ret = true;
+    keywords.forEach(function(keyword) {
+      if (~todo.indexOf(keyword)) ret = true;
     });
 
     return ret;
