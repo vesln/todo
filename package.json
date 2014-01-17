@@ -33,6 +33,7 @@
     "todo": "./bin/todo"
   },
   "dependencies": {
-    "argvee": "~0.1.1"
+    "argvee": "~0.1.1",
+    "stdin": "0.0.1"
   }
 }

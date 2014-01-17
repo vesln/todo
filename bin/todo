@@ -6,6 +6,7 @@
 
 var argv = require('argvee')();
 var fs = require('fs');
+var stdin = require('stdin');
 
 /**
  * Primary command.
@@ -29,6 +30,11 @@ process.on('uncaughtException', function(err) {
 
 function save() {
   fs.writeFileSync(db, JSON.stringify(todos), 'utf8');
+}
+
+function clear() {
+  todos = [];
+  save();
 }
 
 if ('ls' === command) {
@@ -81,4 +87,20 @@ if ('rm' === command) {
   });
 
   save();
+}
+
+if ('clear' === command) {
+  if (~argv.modes.indexOf('force')) {
+    return clear();
+  }
+
+  console.log('Are you sure? (y/n)');
+
+  stdin(function(str) {
+    if ('y' !== str.trim()) {
+      console.error('Aborting...');
+      process.exit(1);
+    }
+    clear();
+  });
 }
