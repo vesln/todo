@@ -102,6 +102,11 @@ if ('check' === command) {
   _todos.check(id);
 }
 
+if ('undo' === command) {
+  var id = +argv.commands[0];
+  _todos.undo(id);
+}
+
 if ('clear' === command) {
   if (~argv.modes.indexOf('force')) {
     return _todos.clear();
