@@ -39,11 +39,21 @@ describe('todo ls', function() {
     .end(done);
   });
 
-  it('does not return a todo item when both included and excluded', function(done) {
+  it('does not return todo items when both included and excluded', function(done) {
     cli()
     .exec('./todo add have more fun @tag')
     .run('ls ~@tag @tag')
     .stdout('')
+    .code(0)
+    .end(done);
+  });
+
+  it('can list completed todo items', function(done) {
+    cli()
+    .exec('./todo add have more fun')
+    .exec('./todo check 1')
+    .run('ls --done')
+    .stdout('1. have more fun')
     .code(0)
     .end(done);
   });

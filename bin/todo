@@ -44,6 +44,11 @@ if ('ls' === command) {
   var keywords = argv.commands;
   var include = [];
   var exclude = [];
+  var status = 'pending';
+
+  if (~argv.modes.indexOf('done')) {
+    status = 'done';
+  }
 
   keywords.forEach(function(keyword) {
     if (keyword[0] === '~') {
@@ -57,9 +62,7 @@ if ('ls' === command) {
     var ret = include.length === 0 ? true : false;
 
     include.forEach(function(keyword) {
-      if (~todo.desc.indexOf(keyword)) {
-        ret = true;
-      }
+      if (~todo.desc.indexOf(keyword)) ret = true;
     });
 
     return ret;
@@ -67,15 +70,13 @@ if ('ls' === command) {
     var ret = true;
 
     exclude.forEach(function(keyword) {
-      if (~todo.desc.indexOf(keyword)) {
-        ret = false;
-      }
+      if (~todo.desc.indexOf(keyword)) ret = false;
     });
 
     return ret;
 
   }).filter(function(todo) {
-    return 'pending' === todo.status;
+    return status === todo.status;
   }).forEach(function(todo) {
     console.log('%d. %s', todo.id, todo.desc);
   });
