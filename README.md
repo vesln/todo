@@ -1,55 +1,16 @@
 [![Build Status](https://secure.travis-ci.org/vesln/todo.png)](http://travis-ci.org/vesln/todo)
 
-# todo - Todos in the CLI like what.
+# todo
 
-![screenshot](http://img580.imageshack.us/img580/684/todov.png)
+You are looking at a future version of todo.
 
-## Description
-
-Todo lists in the CLI.
-
-## Synopsis
-
-```   
-   todo - Todos in the CLI like what.
-   
-   Usage:
-   
-          todo Go shopping. - Adds new item.
-          todo ls.          - Lists not finished items.
-          todo ls --all     - Lists all items.
-          todo rm 1         - Removes #1 item.
-          todo check 1      - Marks #1 item as done.
-          todo undo 1       - Marks #1 item as not done yet.
-          todo clear        - Clears the whole list.
-          todo version      - Lib version.
-   
-   Author: Veselin Todorov <hi@vesln.com>
-```   
-
-## Requirements
-
-- NPM (http://npmjs.org/)
-- Node.js 0.6 (http://nodejs.org/)
-
-## Install
-
-```
-$ npm install todo -g
-```
-
-## Tests
-
-```
-$ npm install
-$ make test
-```
+If you want to see the documentation for the current version - [click here](https://github.com/vesln/todo/tree/0.0.3).
 
 ## License
 
 MIT License
 
-Copyright (C) 2012 Veselin Todorov
+Copyright (c) 2012-2014 Veselin Todorov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
