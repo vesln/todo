@@ -19,6 +19,8 @@ var Storage = require('../lib/storage');
  */
 
 var command = argv.commands.shift();
+
+// TODO: ENV var
 var db = '/tmp/todos.txt';
 
 /**
@@ -32,49 +34,15 @@ process.on('uncaughtException', function(err) {
   process.exit(1);
 });
 
+// TODO: routes
+
 if ('ls' === command) {
-  var keywords = argv.commands;
-  var include = [];
-  var exclude = [];
   var status = 'pending';
 
-  if (~argv.modes.indexOf('done')) {
-    status = 'done';
-  }
+  if (~argv.modes.indexOf('done')) status = 'done';
+  if (~argv.modes.indexOf('all')) status = 'all';
 
-  if (~argv.modes.indexOf('all')) {
-    status = 'all';
-  }
-
-  keywords.forEach(function(keyword) {
-    if (keyword[0] === '~') {
-      exclude.push(keyword.replace(/^~/, ''));
-    } else {
-      include.push(keyword);
-    }
-  });
-
-  todos.items.filter(function(todo) {
-    var ret = include.length === 0 ? true : false;
-
-    include.forEach(function(keyword) {
-      if (~todo.desc.indexOf(keyword)) ret = true;
-    });
-
-    return ret;
-  }).filter(function(todo) {
-    var ret = true;
-
-    exclude.forEach(function(keyword) {
-      if (~todo.desc.indexOf(keyword)) ret = false;
-    });
-
-    return ret;
-
-  }).filter(function(todo) {
-    if (status === 'all') return true;
-    return status === todo.status;
-  }).forEach(function(todo) {
+  todos.list(status, argv.commands).forEach(function(todo) {
     console.log('%d. %s', todo.id, todo.desc);
   });
 }
