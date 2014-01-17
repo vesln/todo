@@ -12,14 +12,13 @@ var stdin = require('stdin');
  */
 
 var Storage = require('../lib/storage');
-
-var db = '/tmp/todos.txt';
+var Todos = require('../lib/todos');
 
 /**
- * Internal dependencies.
+ * Todos.
  */
 
-var todos = require('../lib/todos')(new Storage(db));
+var todos = new Todos(new Storage('/tmp/todos.txt'));
 
 /**
  * Catch all errors and print them in a nice-ish way.
