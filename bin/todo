@@ -77,7 +77,7 @@ var commands = {
    */
 
   rm: function() {
-    todos.destroy(+argv.commands[0]);
+    todos.destroy(argv.commands[0]);
   },
 
   /**
@@ -89,7 +89,7 @@ var commands = {
    */
 
   check: function() {
-    todos.check(+argv.commands[0]);
+    todos.check(argv.commands[0]);
   },
 
   /**
@@ -101,7 +101,7 @@ var commands = {
    */
 
   undo: function() {
-    todos.undo(+argv.commands[0]);
+    todos.undo(argv.commands[0]);
   },
 
   /**
