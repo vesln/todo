@@ -17,4 +17,34 @@ describe('todo ls', function() {
     .code(0)
     .end(done);
   });
+
+  it('can list todo items not containing given string', function(done) {
+    cli()
+    .exec('./todo add have more fun @tag')
+    .exec('./todo add another one')
+    .run('ls ~another')
+    .stdout('1. have more fun @tag')
+    .code(0)
+    .end(done);
+  });
+
+  it('can list todo items not containing one string and containing another', function(done) {
+    cli()
+    .exec('./todo add have more fun @tag')
+    .exec('./todo add have more fun')
+    .exec('./todo add another one')
+    .run('ls ~another @tag')
+    .stdout('1. have more fun @tag')
+    .code(0)
+    .end(done);
+  });
+
+  it('does not return a todo item when both included and excluded', function(done) {
+    cli()
+    .exec('./todo add have more fun @tag')
+    .run('ls ~@tag @tag')
+    .stdout('')
+    .code(0)
+    .end(done);
+  });
 });
