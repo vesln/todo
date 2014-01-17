@@ -50,6 +50,10 @@ if ('ls' === command) {
     status = 'done';
   }
 
+  if (~argv.modes.indexOf('all')) {
+    status = 'all';
+  }
+
   keywords.forEach(function(keyword) {
     if (keyword[0] === '~') {
       exclude.push(keyword.replace(/^~/, ''));
@@ -76,6 +80,7 @@ if ('ls' === command) {
     return ret;
 
   }).filter(function(todo) {
+    if (status === 'all') return true;
     return status === todo.status;
   }).forEach(function(todo) {
     console.log('%d. %s', todo.id, todo.desc);

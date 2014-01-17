@@ -57,4 +57,15 @@ describe('todo ls', function() {
     .code(0)
     .end(done);
   });
+
+  it('can list all todo items', function(done) {
+    cli()
+    .exec('./todo add have more fun')
+    .exec('./todo add another one')
+    .exec('./todo check 1')
+    .run('ls --all')
+    .stdout('1. have more fun\n2. another one')
+    .code(0)
+    .end(done);
+  });
 });
