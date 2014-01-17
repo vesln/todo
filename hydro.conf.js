@@ -4,6 +4,7 @@
 
 var nixt = require('nixt');
 var join = require('path').join;
+var fs = require('fs');
 
 /**
  * Return a new `nixt` instance pointing
@@ -16,7 +17,12 @@ var join = require('path').join;
 function cli() {
   return nixt()
     .cwd(join(__dirname, 'bin'))
-    .base('./todo ');
+    .base('./todo ')
+    .after(function() {
+      try {
+        fs.unlinkSync('/tmp/todos.txt');
+      } catch(e) {}
+    });
 }
 
 /**

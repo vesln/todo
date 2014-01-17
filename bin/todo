@@ -12,9 +12,7 @@ var fs = require('fs');
  */
 
 var command = argv.commands.shift();
-
 var db = '/tmp/todos.txt';
-
 var todos = null;
 
 try {
@@ -29,6 +27,10 @@ process.on('uncaughtException', function(err) {
   process.exit(1);
 });
 
+function save() {
+  fs.writeFileSync(db, JSON.stringify(todos), 'utf8');
+}
+
 if ('ls' === command) {
   var keywords = argv.commands;
 
@@ -40,12 +42,12 @@ if ('ls' === command) {
     var ret = false;
 
     keywords.forEach(function(keyword) {
-      if (~todo.indexOf(keyword)) ret = true;
+      if (~todo.desc.indexOf(keyword)) ret = true;
     });
 
     return ret;
   }).forEach(function(todo) {
-    console.log(todo);
+    console.log('%d. %s', todo.id, todo.desc);
   });
 
   process.exit(0);
@@ -53,7 +55,30 @@ if ('ls' === command) {
 
 if ('add' === command) {
   var desc = argv.commands.join(' ');
-  if (!desc) throw new Error('please enter a todo item');
-  todos.push(desc);
-  fs.writeFileSync(db, JSON.stringify(todos), 'utf8');
+
+  if (!desc) {
+    throw new Error('please enter a todo item');
+  }
+
+  var ids = todos.map(function(todo) {
+    return todo.id;
+  });
+
+  ids.push(0);
+
+  var id = Math.max.apply(null, ids) + 1;
+  var todo = { desc: desc, id: id };
+
+  todos.push(todo);
+  save();
+}
+
+if ('rm' === command) {
+  var id = +argv.commands[0];
+
+  todos = todos.filter(function(todo) {
+    return todo.id !== id;
+  });
+
+  save();
 }
