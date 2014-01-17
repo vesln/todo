@@ -13,11 +13,16 @@ var fs = require('fs');
 
 var command = argv.commands.shift();
 
-/**
- * Todo items.
- */
-
 var db = '/tmp/todos.txt';
+
+var todos = null;
+
+try {
+  var contents = fs.readFileSync(db, 'utf8');
+  todos = JSON.parse(contents);
+} catch(e) {
+  todos = [];
+}
 
 process.on('uncaughtException', function(err) {
   console.error('todo: ' + err.message);
@@ -25,12 +30,30 @@ process.on('uncaughtException', function(err) {
 });
 
 if ('ls' === command) {
-  console.log(fs.readFileSync(db, 'utf8'));
+  var tags = argv.commands;
+
+  todos.filter(function(todo) {
+    if (tags.length === 0) {
+      return true;
+    }
+
+    var ret = false;
+
+    tags.forEach(function(tag) {
+      if (~todo.indexOf(tag)) ret = true;
+    });
+
+    return ret;
+  }).forEach(function(todo) {
+    console.log(todo);
+  });
+
   process.exit(0);
 }
 
 if ('add' === command) {
   var desc = argv.commands.join(' ');
   if (!desc) throw new Error('please enter a todo item');
-  fs.writeFileSync(db, desc, 'utf8');
+  todos.push(desc);
+  fs.writeFileSync(db, JSON.stringify(todos), 'utf8');
 }
