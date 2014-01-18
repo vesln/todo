@@ -4,6 +4,7 @@
 
 TEST_EXEC=node_modules/.bin/hydro
 TEST_COV_EXEC=node_modules/.bin/istanbul
+TEST_EXEC_BARE = node_modules/.bin/_hydro
 
 #
 # All
@@ -54,7 +55,7 @@ test-acceptance:
 #
 
 test-cov:
-	@$(TEST_COV_EXEC) cover $(TEST_EXEC)
+	@$(TEST_COV_EXEC) cover $(TEST_EXEC_BARE)
 
 #
 # Clean all
