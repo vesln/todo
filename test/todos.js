@@ -8,7 +8,7 @@ var data = [ pending, completed ];
 
 describe(Todos, function() {
   describe('#list', function() {
-    it('lists todo items with given status', function() {
+    it('returns todo items with given status', function() {
       jack(storage, 'read', function() { return data; });
 
       var todos = new Todos(storage);
@@ -16,6 +16,12 @@ describe(Todos, function() {
 
       items.should.have.lengthOf(1);
       items[0].id.should.eq(pending.id);
+    });
+
+    it('returns all todo items when the status is "all"', function() {
+      jack(storage, 'read', function() { return data; });
+      var todos = new Todos(storage);
+      todos.list('all').should.have.lengthOf(2);
     });
   });
 
@@ -76,7 +82,7 @@ describe(Todos, function() {
       var todos = new Todos(storage);
 
       jack(storage, 'write');
-      jack(storage, 'read', function() { return [ pending, completed ]; });
+      jack(storage, 'read', function() { return data; });
 
       todos.destroy(completed.id);
       storage.write.should.have.been.called.with.args([ new Todo(1, 'desc', 'pending') ]);
