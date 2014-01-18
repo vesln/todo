@@ -24,7 +24,7 @@ var todos = new Todos(new Storage('/tmp/todos.txt'));
  * Requested command.
  */
 
-var command = basename(argv.commands.shift() || 'help');
+var command = basename(argv.commands.shift() || 'ls');
 
 /**
  * Options.
