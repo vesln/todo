@@ -6,6 +6,12 @@ TEST_EXEC=node_modules/.bin/hydro
 TEST_COV_EXEC=node_modules/.bin/istanbul
 
 #
+# All
+#
+
+all: clean install test
+
+#
 # Install
 #
 

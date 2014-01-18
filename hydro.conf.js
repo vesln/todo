@@ -37,16 +37,14 @@ module.exports = function(hydro) {
     formatter: 'hydro-doc',
     chai: {
       styles: 'should',
-      stack: true,
-      plugins: ['jack-chai'],
+      stack: true
     },
     globals: {
       cli: cli,
     },
     plugins: [
       'hydro-bdd',
-      'hydro-chai',
-      'hydro-jack'
+      'hydro-chai'
     ],
     tests: [
       'test/*.js',
