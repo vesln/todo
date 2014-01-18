@@ -12,10 +12,13 @@
     "chai": "*",
     "nixt": "*",
     "istanbul": "~0.2.3",
+    "jack": "git://github.com/jackjs/jack.git#master",
+    "jack-chai": "~0.1.0",
     "hydro": "*",
     "hydro-doc": "0.0.2",
     "hydro-bdd": "~0.1.0",
-    "hydro-chai": "~0.1.3"
+    "hydro-chai": "~0.1.3",
+    "hydro-jack": "0.0.1"
   },
   "repository": {
     "type": "git",
