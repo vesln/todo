@@ -15,9 +15,10 @@ var fs = require('fs');
  */
 
 function cli() {
+  var bin = join(__dirname, 'bin');
+
   return nixt()
-    .cwd(join(__dirname, 'bin'))
-    .base('./todo ')
+    .cwd(bin)
     .after(function() {
       try {
         fs.unlinkSync('/tmp/todos.txt');

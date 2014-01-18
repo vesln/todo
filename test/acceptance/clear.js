@@ -3,7 +3,7 @@ describe('todo clear', function() {
     cli()
     .exec('./todo add have more fun')
     .exec('./todo clear <<< y')
-    .run('ls')
+    .run('./todo ls')
     .stdout('')
     .code(0)
     .end(done);
@@ -12,7 +12,7 @@ describe('todo clear', function() {
   it('asks before removing all todo items', function(done) {
     cli()
     .exec('./todo add have more fun')
-    .run('clear <<< n')
+    .run('./todo clear <<< n')
     .stdout('Are you sure? (y/n)')
     .stderr('Aborting...')
     .code(1)
@@ -22,7 +22,7 @@ describe('todo clear', function() {
   it('does not ask before removing the items when called with --force', function(done) {
     cli()
     .exec('./todo add have more fun')
-    .run('clear --force')
+    .run('./todo clear --force')
     .stdout('')
     .code(0)
     .end(done);
