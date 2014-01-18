@@ -30,6 +30,12 @@ test:
 	@make test-acceptance
 
 #
+# Test runner for the CI server
+#
+
+test-ci: test
+
+#
 # Run the unit tests
 #
 
