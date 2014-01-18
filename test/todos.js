@@ -33,6 +33,15 @@ describe(Todos, function() {
       todos.create('desc');
       storage.write.should.have.been.called.with.args([ new Todo(1, 'desc') ]);
     });
+
+    it('sets the right id', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return [pending]; });
+
+      todos.create('desc');
+      storage.write.calls[0].args[0][1].id.should.eq(2);
+    });
   });
 
   describe('#check', function() {
