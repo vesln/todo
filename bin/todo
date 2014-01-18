@@ -5,7 +5,6 @@
  */
 
 var argv = require('argvee')();
-var stdin = require('stdin');
 
 /**
  * Internal dependencies.
@@ -13,7 +12,6 @@ var stdin = require('stdin');
 
 var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
-var filter = require('../lib/filter');
 
 /**
  * Todos.
@@ -23,6 +21,8 @@ var todos = new Todos(new Storage('/tmp/todos.txt'));
 
 /**
  * Catch all errors and print them in a nice-ish way.
+ *
+ * Print the stack when invoked with --debug
  */
 
 process.on('uncaughtException', function(err) {
@@ -36,159 +36,14 @@ process.on('uncaughtException', function(err) {
 });
 
 /**
- * Available commands.
- */
-
-var commands = {
-
-  /**
-   * List all todo items.
-   *
-   * Example:
-   *
-   *     $ todo ls
-   *     $ todo ls @tag ~other
-   *     $ todo ls --all
-   *     $ todo ls --done
-   */
-
-  ls: function() {
-    var status = 'pending';
-
-    if (~argv.modes.indexOf('done')) status = 'done';
-    if (~argv.modes.indexOf('all')) status = 'all';
-
-    var f = filter(argv.commands);
-
-    todos
-      .list(status)
-      .filter(function(todo) {
-        return f(todo.desc);
-      })
-      .forEach(function(todo) {
-        console.log('%d. %s', todo.id, todo.desc);
-      });
-  },
-
-  /**
-   * Create a new todo item.
-   *
-   * Example:
-   *
-   *     $ todo add Go to swimming
-   *     $ todo add "Write more Java"
-   */
-
-  add: function() {
-    todos.create(argv.commands.join(' '));
-  },
-
-  /**
-   * Remove a todo item.
-   *
-   * Example:
-   *
-   *     $ todo rm 1
-   */
-
-  rm: function() {
-    todos.destroy(argv.commands[0]);
-  },
-
-  /**
-   * Complete a todo item.
-   *
-   * Example:
-   *
-   *     $ todo check 1
-   */
-
-  check: function() {
-    todos.check(argv.commands[0]);
-  },
-
-  /**
-   * Undo a completed todo item.
-   *
-   * Example:
-   *
-   *     $ todo undo 3
-   */
-
-  undo: function() {
-    todos.undo(argv.commands[0]);
-  },
-
-  /**
-   * Clear all todo items.
-   *
-   * Example:
-   *
-   *     $ todo clear
-   *     $ todo clear --force
-   */
-
-  clear: function() {
-    if (~argv.modes.indexOf('force')) {
-      return todos.clear();
-    }
-
-    console.log('Are you sure? (y/n)');
-
-    stdin(function(str) {
-      if ('y' === str.trim()) return todos.clear();
-      console.error('Aborting...');
-      process.exit(1);
-    });
-  },
-
-  /**
-   * Help.
-   *
-   * Example:
-   *
-   *     $ todo
-   *     $ todo --help
-   */
-
-  help: function() {
-    [
-      '',
-      '  todo: Todos in the CLI like what',
-      '',
-      '  Usage:',
-      '',
-      '    todo                     Print help',
-      '    todo add Go shopping     Create a new todo item',
-      '    todo add ls              Print all pending todo items',
-      '    todo add ls @tag         Print todo items containing "@tag"',
-      '    todo add ls ~@tag        Print todo items not containing "@tag"',
-      '    todo add ls --all        Print completed and pending todo items',
-      '    todo add ls --done       Print completed todo items',
-      '    todo add done 1          Mark #1 as completed',
-      '    todo add undo 1          Revert #1 to pending',
-      '    todo add rm 1            Remove #1 item',
-      '    todo add clear           Destroy all todo items',
-      '',
-      '  Environment variables:',
-      '',
-      '    TODO_FORMAT=json         Specify formatter (simple, json) [default: simple]',
-      '    TODO_DB_PATH=~/Dropbox/  Specify DB path [default: your home directory]',
-      '',
-    ].forEach(function(line) {
-      console.log(line);
-    });
-  }
-};
-
-/**
  * Requested command.
  */
 
 var command = argv.commands.shift() || 'help';
 
-if (commands.hasOwnProperty(command)) {
-  commands[command]();
-} else {
+try {
+  require('../lib/cli/' + command)(argv, todos);
+} catch(e) {
+  if ('MODULE_NOT_FOUND' !== e.code) throw e;
   throw new Error('Unrecognized command "' + command + '"');
 }
