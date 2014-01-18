@@ -5,6 +5,7 @@
  */
 
 var argv = require('argvee')();
+var basename = require('path').basename;
 
 /**
  * Internal dependencies.
@@ -20,29 +21,35 @@ var Todos = require('../lib/todos');
 var todos = new Todos(new Storage('/tmp/todos.txt'));
 
 /**
- * Catch all errors and print them in a nice-ish way.
- *
- * Print the stack when invoked with --debug
- */
-
-process.on('uncaughtException', function(err) {
-  if (~argv.modes.indexOf('debug') && err.stack) {
-    console.error(err.stack);
-  } else {
-    console.error('todo: ' + err.message);
-  }
-
-  process.exit(1);
-});
-
-/**
  * Requested command.
  */
 
-var command = argv.commands.shift() || 'help';
+var command = basename(argv.commands.shift() || 'help');
+
+/**
+ * Options.
+ */
+
+var options = {
+  format: basename(process.env.TODO_FORMAT || 'simple')
+};
+
+/**
+ * Catch all errors and print them in a nice-ish way.
+ * It prints the stack when invoked with `--debug`.
+ */
+
+process.on('uncaughtException', function(err) {
+  var out = ~argv.modes.indexOf('debug') && err.stack
+    ? err.stack
+    : 'todo: ' + err.message;
+
+  console.error(out);
+  process.exit(1);
+});
 
 try {
-  require('../lib/cli/' + command)(argv, todos);
+  require('../lib/cli/' + command)(argv, todos, options);
 } catch(e) {
   if ('MODULE_NOT_FOUND' !== e.code) throw e;
   throw new Error('Unrecognized command "' + command + '"');

@@ -19,6 +19,7 @@ function cli() {
 
   return nixt()
     .cwd(bin)
+    .env('TODO_FORMAT', 'mini')
     .after(function() {
       try {
         fs.unlinkSync('/tmp/todos.txt');
