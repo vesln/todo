@@ -49,7 +49,6 @@ describe(Todos, function() {
     it('errors when it cannot find the given todo item', function() {
       var todos = new Todos(storage);
       jack(storage, 'read', function() { return [pending]; });
-
       should.throw(function() {
         todos.check(completed.id);
       });
