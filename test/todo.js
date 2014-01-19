@@ -18,6 +18,11 @@ describe(Todo, function() {
     todo.status.should.eq('pending')
   });
 
+  it('has a default modified date', function() {
+    var todo = new Todo(1, 'test');
+    todo.modified.should.be.instanceOf(Date);
+  });
+
   describe('.create', function() {
     it('returns an array of todo items', function() {
       var attrs = [
