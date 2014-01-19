@@ -23,7 +23,7 @@
 
   Environment variables:
 
-    TODO_FORMAT=json                  Specify formatter (simple, pretty, mini) [default: simple]
+    TODO_FORMAT=pretty                Specify formatter (simple, pretty, mini) [default: simple]
     TODO_DB_PATH=~/Dropbox/todo.json  Specify DB path [default: ~/.todo-db.json]
 
 ```
