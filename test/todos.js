@@ -106,7 +106,7 @@ describe(Todos, function() {
   });
 
   describe('#destroy', function() {
-    it('undoes todo items and persists them', function() {
+    it('removes todo items', function() {
       var todos = new Todos(storage);
 
       jack(storage, 'write');
