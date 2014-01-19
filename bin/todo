@@ -6,6 +6,7 @@
 
 var argv = require('argvee')();
 var path = require('path');
+var EventEmitter = require('events').EventEmitter;
 var basename = path.basename;
 var join = path.join;
 
@@ -15,6 +16,7 @@ var join = path.join;
 
 var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
+var formatter = require('../lib/formatter');
 
 /**
  * Database path.
@@ -34,18 +36,22 @@ var dbPath = process.env.TODO_DB_PATH
 var todos = new Todos(new Storage(dbPath));
 
 /**
+ * Coordinator.
+ */
+
+var coord = new EventEmitter;
+
+/**
  * Requested command.
  */
 
 var command = basename(argv.commands.shift() || 'ls');
 
 /**
- * Options.
+ * Formatter.
  */
 
-var options = {
-  format: basename(process.env.TODO_FORMAT || 'simple')
-};
+var format = formatter(basename(process.env.TODO_FORMAT || 'simple'), coord);
 
 /**
  * Catch all errors and print them in a nice-ish way.
@@ -66,7 +72,8 @@ process.on('uncaughtException', function(err) {
  */
 
 try {
-  require('../lib/cli/' + command)(argv, todos, options);
+  var ret = require('../lib/cli/' + command)(argv, todos);
+  coord.emit(command, ret);
 } catch(e) {
   if ('MODULE_NOT_FOUND' !== e.code) throw e;
   throw new Error('Unrecognized command "' + command + '"');
