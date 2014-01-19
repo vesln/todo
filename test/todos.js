@@ -42,6 +42,12 @@ describe(Todos, function() {
       todos.create('desc');
       storage.write.calls[0].args[0][1].id.should.eq(2);
     });
+
+    it('returns the new todo item', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      todos.create('desc').desc.should.eq('desc');
+    });
   });
 
   describe('#check', function() {
@@ -61,6 +67,13 @@ describe(Todos, function() {
       should.throw(function() {
         todos.check(completed.id);
       });
+    });
+
+    it('returns the todo item', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return [pending]; });
+      todos.check(pending.id).desc.should.eq(pending.desc);
     });
   });
 
@@ -83,6 +96,13 @@ describe(Todos, function() {
         todos.undo(pending.id);
       });
     });
+
+    it('returns the todo item', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return [pending]; });
+      todos.undo(pending.id).desc.should.eq(pending.desc);
+    });
   });
 
   describe('#destroy', function() {
@@ -103,6 +123,13 @@ describe(Todos, function() {
       should.throw(function() {
         todos.destroy(pending.id);
       });
+    });
+
+    it('returns the todo item', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return [pending]; });
+      todos.destroy(pending.id).desc.should.eq(pending.desc);
     });
   });
 
