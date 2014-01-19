@@ -2,7 +2,7 @@ describe('todo clear', function() {
   it('removes all todo items', function(done) {
     cli()
     .exec('todo add have more fun')
-    .exec('todo clear <<< y')
+    .exec('echo "y" | todo clear')
     .run('todo ls')
     .stdout('')
     .code(0)
@@ -12,7 +12,7 @@ describe('todo clear', function() {
   it('asks before removing all todo items', function(done) {
     cli()
     .exec('todo add have more fun')
-    .run('todo clear <<< n')
+    .run('echo "n" | todo clear')
     .stdout('Are you sure? (y/n)')
     .stderr('Aborting...')
     .code(1)
