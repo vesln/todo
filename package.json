@@ -38,6 +38,7 @@
     "argvee": "~0.1.1",
     "stdin": "0.0.1",
     "refractory": "0.0.3",
-    "eyehurt": "0.0.1"
+    "eyehurt": "0.0.1",
+    "ms": "~0.6.2"
   }
 }
