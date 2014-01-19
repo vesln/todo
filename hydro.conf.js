@@ -16,13 +16,17 @@ var fs = require('fs');
 
 function cli() {
   var bin = join(__dirname, 'bin');
+  var tmp = join(__dirname, 'test', 'tmp', 'todos.json');
+  var path = bin + ':' + process.env.PATH;
 
   return nixt()
     .cwd(bin)
     .env('TODO_FORMAT', 'mini')
+    .env('TODO_DB_PATH', tmp)
+    .env('PATH', path)
     .after(function() {
       try {
-        fs.unlinkSync('/tmp/todos.txt');
+        fs.unlinkSync(tmp);
       } catch(e) {}
     });
 }

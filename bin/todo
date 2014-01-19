@@ -5,7 +5,9 @@
  */
 
 var argv = require('argvee')();
-var basename = require('path').basename;
+var path = require('path');
+var basename = path.basename;
+var join = path.join;
 
 /**
  * Internal dependencies.
@@ -18,7 +20,9 @@ var Todos = require('../lib/todos');
  * Todos.
  */
 
-var todos = new Todos(new Storage('/tmp/todos.txt'));
+var dbPath = join(__dirname, '..', 'test', 'tmp', 'todos.json') + '';
+var dbPath = process.env.TODO_DB_PATH;
+var todos = new Todos(new Storage(dbPath));
 
 /**
  * Requested command.
