@@ -1,4 +1,23 @@
 
+0.9.9 / 2014-01-19
+==================
+
+  * Add pretty formatter
+  * Todo stores the last modified date
+  * Improve help
+  * Prettify format output
+  * Support custom database path
+  * todo with no args will print the pending todos
+  * Introduce formatters
+  * Move list to Todos
+  * Introduce Storage class
+  * Introduce Todo class
+  * `ls` can list all todo items
+  * `ls` can list completed todo items
+  * `ls` supports exclusion
+  * `rm` errors when cannot find the todo item
+  * `ls` can filter by any arbitrary string
+
 0.0.3 / 2013-04-13
 ==================
 
