@@ -7,6 +7,12 @@ var join = require('path').join;
 var fs = require('fs');
 
 /**
+ * TMP path.
+ */
+
+var tmp = join(__dirname, 'test', 'tmp');
+
+/**
  * Return a new `nixt` instance pointing
  * to the todo bin.
  *
@@ -16,19 +22,14 @@ var fs = require('fs');
 
 function cli() {
   var bin = join(__dirname, 'bin');
-  var tmp = join(__dirname, 'test', 'tmp', 'todos.json');
+  var db = join(tmp, 'todos.json');
   var path = bin + ':' + process.env.PATH;
 
   return nixt()
     .cwd(bin)
     .env('TODO_FORMAT', 'mini')
-    .env('TODO_DB_PATH', tmp)
-    .env('PATH', path)
-    .after(function() {
-      try {
-        fs.unlinkSync(tmp);
-      } catch(e) {}
-    });
+    .env('TODO_DB_PATH', db)
+    .env('PATH', path);
 }
 
 /**
@@ -44,15 +45,20 @@ module.exports = function(hydro) {
     chai: {
       styles: 'should',
       stack: true,
-      plugins: ['jack-chai'],
+      plugins: [ 'jack-chai' ],
     },
     globals: {
       cli: cli,
+    },
+    cleanDir: {
+      keepDot: true,
+      paths: [ tmp ]
     },
     plugins: [
       'hydro-bdd',
       'hydro-chai',
       'hydro-jack',
+      'hydro-clean-dir',
     ],
     tests: [
       'test/*.js',
