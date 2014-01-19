@@ -17,11 +17,20 @@ var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
 
 /**
+ * Database path.
+ *
+ * Specify with environment variable `TODO_DB_PATH`.
+ * The default location is `$HOME/.todo-db.json`
+ */
+
+var dbPath = process.env.TODO_DB_PATH
+  ? process.env.TODO_DB_PATH
+  : join(process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE, '.todo-db.json');
+
+/**
  * Todos.
  */
 
-var dbPath = join(__dirname, '..', 'test', 'tmp', 'todos.json') + '';
-var dbPath = process.env.TODO_DB_PATH;
 var todos = new Todos(new Storage(dbPath));
 
 /**
@@ -51,6 +60,10 @@ process.on('uncaughtException', function(err) {
   console.error(out);
   process.exit(1);
 });
+
+/**
+ * Require the requested command.
+ */
 
 try {
   require('../lib/cli/' + command)(argv, todos, options);
