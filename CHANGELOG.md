@@ -1,4 +1,10 @@
 
+0.10.0 / 2014-01-21
+==================
+
+  * Ensure that Todo#id is always a number
+  * Add `mv` command that changes todo item ids
+
 0.9.9 / 2014-01-19
 ==================
 
