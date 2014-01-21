@@ -24,6 +24,18 @@ describe(Todos, function() {
       var todos = new Todos(storage);
       todos.list('all').should.have.lengthOf(2);
     });
+
+    it('sorts the todo items by id', function() {
+      jack(storage, 'read', function() {
+        return [ { id: 2, desc: 'desc', }, { id: 1, desc: 'desc' } ];
+      });
+
+      var todos = new Todos(storage);
+      var items = todos.list('all');
+
+      items[0].id.should.eq(1);
+      items[1].id.should.eq(2);
+    });
   });
 
   describe('#create', function() {
@@ -145,6 +157,44 @@ describe(Todos, function() {
       jack(storage, 'write');
       todos.clear();
       storage.write.should.have.been.called.with.args([]);
+    });
+  });
+
+  describe('#mv', function() {
+    it('changes the ids of todo items', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'read', function() { return [ completed ]; });
+      jack(storage, 'write');
+
+      todos.mv(completed.id, 42).id.should.eq(42);
+    });
+
+    it('persists the todo items', function() {
+      var todos = new Todos(storage);
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return data; });
+
+      todos.mv(pending.id, 42);
+      storage.write.should.have.been.invoked();
+    });
+
+    it('swaps the ids of todo items', function() {
+      var todos = new Todos(storage);
+      var actual = null;
+
+      jack(storage, 'write', function(todos) {
+        actual = todos.map(function(todo) {
+          return todo.id;
+        });
+      });
+
+      jack(storage, 'read', function() {
+        return [ { id: 1, desc: 'desc' }, { id: 2, desc: 'desc' } ];
+      });
+
+      todos.mv(1, 2);
+
+      actual.should.eql([2, 1]);
     });
   });
 });
