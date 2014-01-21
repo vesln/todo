@@ -23,6 +23,19 @@ describe(Todo, function() {
     todo.modified.should.be.instanceOf(Date);
   });
 
+  describe('#id', function() {
+    it('casts the id to number', function() {
+      var todo = new Todo('1', 'test');
+      todo.id.should.eq(1);
+    });
+
+    it('throws an error when id is NaN', function() {
+      should.throw(function() {
+        new Todo('id', 'desc');
+      });
+    });
+  });
+
   describe('.create', function() {
     it('returns an array of todo items', function() {
       var attrs = [
