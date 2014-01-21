@@ -20,7 +20,9 @@
     "hydro-bdd": "~0.1.0",
     "hydro-chai": "~0.1.3",
     "hydro-jack": "0.0.1",
-    "hydro-clean-dir": "0.0.1"
+    "hydro-clean-dir": "0.0.1",
+    "timekeeper": "0.0.4",
+    "hydro-timekeeper": "0.0.1"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,6 @@
 var Todos = require('../lib/todos');
 var Todo = require('../lib/todo');
+var time = require('timekeeper');
 
 var storage = { read: function() { return []; } };
 var pending = { id: 1, status: 'pending', desc: 'desc', };
@@ -30,6 +31,7 @@ describe(Todos, function() {
       var todos = new Todos(storage);
       jack(storage, 'write');
 
+      time.freeze();
       todos.create('desc');
       storage.write.should.have.been.called.with.args([ new Todo(1, 'desc') ]);
     });
@@ -56,6 +58,8 @@ describe(Todos, function() {
 
       jack(storage, 'write');
       jack(storage, 'read', function() { return [pending]; });
+
+      time.freeze();
 
       todos.check(pending.id);
       storage.write.should.have.been.called.with.args([ new Todo(1, 'desc', 'done') ]);
@@ -112,8 +116,10 @@ describe(Todos, function() {
       jack(storage, 'write');
       jack(storage, 'read', function() { return data; });
 
-      todos.destroy(completed.id);
-      storage.write.should.have.been.called.with.args([ new Todo(1, 'desc', 'pending') ]);
+      time.freeze();
+
+      todos.destroy(pending.id);
+      storage.write.should.have.been.called.with.args([ new Todo(2, 'desc', 'done') ]);
     });
 
     it('errors when it cannot find the given todo item', function() {

@@ -59,6 +59,7 @@ module.exports = function(hydro) {
       'hydro-chai',
       'hydro-jack',
       'hydro-clean-dir',
+      'hydro-timekeeper',
     ],
     tests: [
       'test/*.js',
