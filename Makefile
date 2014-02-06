@@ -16,8 +16,7 @@ all: clean install test
 # Install
 #
 
-install:
-	@npm install
+install: node_modules
 
 #
 # Run all tests
@@ -26,9 +25,9 @@ install:
 test:
 	@echo
 	@echo '==> [ Test :: Unit ]'
-	@make test-unit
+	@$(MAKE) test-unit
 	@echo '==> [ Test :: Acceptance ]'
-	@make test-acceptance
+	@$(MAKE) test-acceptance
 
 #
 # Test runner for the CI server
@@ -62,16 +61,17 @@ test-cov:
 #
 
 clean: clean-node
-
-#
-# Remove `node_modules`
-#
-
-clean-node:
 	@rm -rf node_modules
+
+#
+# Install node modules
+#
+
+node_modules:
+	@npm install
 
 #
 # Instructions
 #
 
-.PHONY: test
+.PHONY: test-acceptance test-cov test-unit test-ci test
