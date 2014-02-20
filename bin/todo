@@ -1,22 +1,17 @@
 #!/usr/bin/env node
 
 /**
- * External dependencies.
+ * Dependencies.
  */
 
 var argv = require('argvee')();
 var path = require('path');
 var EventEmitter = require('events').EventEmitter;
-var basename = path.basename;
-var join = path.join;
-
-/**
- * Internal dependencies.
- */
-
 var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
 var formatter = require('../lib/formatter');
+var basename = path.basename;
+var join = path.join;
 
 /**
  * Database path.
