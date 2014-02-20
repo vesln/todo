@@ -22,7 +22,7 @@ var join = path.join;
 
 var dbPath = process.env.TODO_DB_PATH
   ? process.env.TODO_DB_PATH
-  : join(process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE, '.todo-db.json');
+  : join(require('homepath'), '.todo-db.json');
 
 /**
  * Todos.
