@@ -16,7 +16,7 @@
     todo ls ~@tag            Print todo items not containing "@tag"
     todo ls --all            Print completed and pending todo items
     todo ls --done           Print completed todo items
-    todo done 1              Mark #1 as completed
+    todo check 1             Mark #1 as completed
     todo mv 1 42             Change the id of given todo
     todo undo 1              Revert #1 to pending
     todo rm 1                Remove #1 item
