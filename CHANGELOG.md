@@ -1,4 +1,11 @@
 
+1.0.1 / 2014-08-13
+==================
+
+  * Merge pull request #14 from d48/fix-todo-help
+  * add text on usage
+  * `done` is actually called `check`
+
 1.0.0 / 2014-03-07
 ==================
 

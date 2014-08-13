@@ -1,6 +1,6 @@
 {
   "name": "todo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Todos in the CLI like what.",
   "preferGlobal": true,
   "keywords": [
