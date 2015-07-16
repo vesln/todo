@@ -60,7 +60,7 @@ test-cov:
 # Clean all
 #
 
-clean: clean-node
+clean:
 	@rm -rf node_modules
 
 #
