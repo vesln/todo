@@ -40,7 +40,7 @@ var coord = new EventEmitter;
  * Requested command.
  */
 
-var command = basename(argv.commands.shift() || 'help');
+var command = basename(argv.commands.shift() || 'ls');
 
 /**
  * Formatter.
