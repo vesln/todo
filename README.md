@@ -9,7 +9,8 @@
 
   Usage:
 
-    todo                     Print help
+    todo                     Print todos
+    todo help                Lists the available commands
     todo add Go shopping     Create a new todo item
     todo ls                  Print all pending todo items
     todo ls @tag             Print todo items containing "@tag"
