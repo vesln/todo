@@ -152,6 +152,18 @@ describe(Todos, function() {
   });
 
   describe('#clear', function() {
+    it('clears todos with give status', function() {
+      var todos = new Todos(storage);
+      
+      time.freeze();
+
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return data; });
+
+      todos.clear('done');
+      storage.write.should.have.been.called.with.args([ new Todo(1, 'desc', 'pending') ]);
+    });
+
     it('persists a blank todo list', function() {
       var todos = new Todos(storage);
       jack(storage, 'write');

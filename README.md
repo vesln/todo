@@ -22,6 +22,7 @@
     todo undo 1              Revert #1 to pending
     todo rm 1                Remove #1 item
     todo clear               Destroy all todo items
+    todo clear --done        Destroy all completed todo items
 
   Environment variables:
 
