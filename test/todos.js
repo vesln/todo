@@ -154,7 +154,7 @@ describe(Todos, function() {
   describe('#clear', function() {
     it('clears todos with give status', function() {
       var todos = new Todos(storage);
-      
+
       time.freeze();
 
       jack(storage, 'write');
@@ -207,6 +207,20 @@ describe(Todos, function() {
       todos.mv(1, 2);
 
       actual.should.eql([2, 1]);
+    });
+  });
+
+  describe('#renumber', function() {
+    it('renumbers the todo items', function() {
+      var todos = new Todos(storage);
+
+      time.freeze();
+      jack(storage, 'write');
+      jack(storage, 'read', function() { return [ completed ]; });
+
+      todos.renumber();
+
+      storage.write.should.have.been.called.with.args([ new Todo(1, 'desc', 'done') ]);
     });
   });
 });
