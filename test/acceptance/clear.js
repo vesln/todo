@@ -29,4 +29,31 @@ describe('todo clear', function() {
     .code(0)
     .end(done);
   });
+
+  describe('--done', function() {
+    it('clears completed todos', function(done) {
+      cli()
+      .exec('todo add have more fun')
+      .exec('todo add have even more fun')
+      .exec('todo check 1')
+      .exec('todo clear --force --done')
+      .run('todo ls')
+      .stdout('2. have even more fun')
+      .code(0)
+      .end(done);
+    });
+
+    it('asks before clearing completed todos', function(done) {
+      cli()
+      .exec('todo add have more fun')
+      .exec('todo add have even more fun')
+      .exec('todo check 1')
+      .exec('echo "y" | todo clear --done')
+      .run('todo ls')
+      .stdout('2. have even more fun')
+      .code(0)
+      .end(done);
+    });
+  });
+
 });
