@@ -23,6 +23,7 @@
     todo rm 1                Remove #1 item
     todo clear               Destroy all todo items
     todo clear --done        Destroy all completed todo items
+    todo renumber            Re-numbers all todos starting with 1
 
   Environment variables:
 
