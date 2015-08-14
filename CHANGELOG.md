@@ -1,3 +1,10 @@
+1.1.0 / 2015-08-13
+==================
+
+  * Merge pull request #18
+  * Merge pull request #19
+  * Merge pull request #21
+  * Merge pull request #22
 
 1.0.1 / 2014-08-13
 ==================
