@@ -29,6 +29,10 @@
 
     TODO_FORMAT=pretty                Specify formatter (simple, pretty, mini) [default: simple]
     TODO_DB_PATH=~/Dropbox/todo.json  Specify DB path [default: ~/.todo-db.json]
+
+  Other goodies:
+
+    .todo                             Leave in CWD to have a project-specific todo db.
 ```
 
 ## Installation
