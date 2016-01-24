@@ -10,6 +10,7 @@ var EventEmitter = require('events').EventEmitter;
 var Storage = require('../lib/storage');
 var Todos = require('../lib/todos');
 var formatter = require('../lib/formatter');
+var fs = require('fs');
 var basename = path.basename;
 var join = path.join;
 
@@ -18,11 +19,21 @@ var join = path.join;
  *
  * Specify with environment variable `TODO_DB_PATH`.
  * The default location is `$HOME/.todo-db.json`
+ * Current location overrides other options.
  */
 
 var dbPath = process.env.TODO_DB_PATH
   ? process.env.TODO_DB_PATH
   : join(require('homepath'), '.todo-db.json');
+
+try {
+  fs.readFileSync('.todo');
+
+  dbPath = join(process.cwd(), '.todo');
+}
+catch (err) {
+
+}
 
 /**
  * Todos.
